@@ -1,0 +1,91 @@
+<% layout('layouts/boilerplate.ejs') %>
+
+    <body>
+        <div class="row">
+            <div class="col-8 offset-2">
+
+                <h4>Create your new listing</h4>
+
+                <!-- this is a new way of doing this, instead of writing name attribute as title, country etc, we write them as keys of listing object, so now in the backend it will be easy to get them -->
+
+                <form action="/listing/new" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
+
+                    <div class="mt-2">
+                        <label for="title" class="form-label">Title:</label>
+                        <input type="text" name="listing[title]" id="title" class="form-control"
+                            placeholder="Add a catchy title" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Enter a catchy title
+                        </div>
+                    </div>
+
+                    <div class="mt-2">
+                        <label for="description" class="form-label">Description:</label>
+                        <textarea name="listing[description]" id="description" class="form-control" required></textarea>
+                    </div>
+
+                    <div class="mt-2">
+                        <label for="image" class="form-label">Image:</label>
+                        <input type="file" name="listing[image]" class="form-control" id="image">
+                    </div>
+
+                    <div class="mt-2 row">
+                        <div class="col-md-4">
+                            <label for="price" class="form-label">Price:</label>
+                            <input type="number" name="listing[price]" class="form-control" id="price" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Enter a valid price
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <label for="country" class="form-label">country:</label>
+                            <input type="text" name="listing[country]" class="form-control" id="country" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Country name should be valid
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-2">
+                        <label for="location" class="form-label">location:</label>
+                        <input type="text" name="listing[location]" class="form-control" id="location" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            location should be valid
+                        </div>
+                    </div>
+
+                    <!-- adding this later -->
+                    <div class="mt-2">
+                        <label for="category" class="form-label">Category:</label>
+                        <select name="listing[category]" id="category" class="form-select" required>
+                            <option value="rooms">Rooms</option>
+                            <option value="iconic cities">Iconic Cities</option>
+                            <option value="mountains">Mountains</option>
+                            <option value="castles">Castles</option>
+                            <option value="amazing pools">Amazing Pools</option>
+                            <option value="camping">Camping</option>
+                            <option value="farms">Farms</option>
+                            <option value="arctic">Arctic</option>
+                        </select>
+                    </div>
+
+
+
+                    <br>
+                    <button class="btn btn-danger">Submit</button>
+                </form>
+            </div>
+        </div>
+    </body>

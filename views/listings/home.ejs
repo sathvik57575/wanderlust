@@ -1,0 +1,106 @@
+<% layout('layouts/boilerplate.ejs') %>
+    <!--can even add / before layouts/boilderplate, but don't do ../layouts/boiler-because it automatically checks for views folder, so we don't need to specify it, if we do we get error-> -->
+
+    <body>
+
+        <!-- added later -->
+        <div class="filters-container mt-3">
+
+        <!-- SCROLLABLE FILTERS -->
+        <div class="filters">
+            <a href="/listings/category/all" class="text-center filter-btn">
+                <i class="fa-solid fa-globe"></i>
+                <span>All</span>
+            </a>
+
+            <a href="/listings/category/rooms" class="text-center filter-btn">
+                <i class="fa-solid fa-bed"></i>
+                <span>Rooms</span>
+            </a>
+
+            <a href="/listings/category/iconic cities" class="text-center filter-btn">
+                <i class="fa-solid fa-city"></i>
+                <span>Cities</span>
+            </a>
+
+            <a href="/listings/category/mountains" class="text-center filter-btn">
+                <i class="fa-solid fa-mountain"></i>
+                <span>Mountains</span>
+            </a>
+
+            <a href="/listings/category/castles" class="text-center filter-btn">
+                <i class="fa-brands fa-fort-awesome"></i>
+                <span>Castles</span>
+            </a>
+
+            <a href="/listings/category/amazing pools" class="text-center filter-btn">
+                <i class="fa-solid fa-person-swimming"></i>
+                <span>Pools</span>
+            </a>
+
+            <a href="/listings/category/camping" class="text-center filter-btn">
+                <i class="fa-solid fa-campground"></i>
+                <span>Camping</span>
+            </a>
+
+            <a href="/listings/category/farms" class="text-center filter-btn">
+                <i class="fa-solid fa-tractor"></i>
+                <span>Farms</span>
+            </a>
+
+            <a href="/listings/category/arctic" class="text-center filter-btn">
+                <i class="fa-solid fa-snowflake"></i>
+                <span>Arctic</span>
+            </a>
+        </div>
+
+        <!-- TAX TOGGLE (stays on right) -->
+        <div class="tax-toggle-wrapper">
+            <div class="tax-toggle form-check form-switch form-check-reverse">
+                <input type="checkbox" class="form-check-input" id="taxSwitch">
+                <label class="form-check-label" for="taxSwitch">Display total after taxes</label>
+            </div>
+        </div>
+
+    </div>
+
+
+        <!-- below are listings -->
+        <br>
+        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1">
+            <% allListings.forEach(element=> { %>
+                <div class="card col">
+                    <a href="/listings/<%= element._id %>" class="listing">
+                        <img src="<%= element.image.url %>" class="card-img-top" alt="...">
+                        <div class="card-img-overlay"></div>
+                        <div class="card-body">
+                            <p class="card-text"><b>
+                                    <%= element.title %>
+                                </b>
+                                <br>
+                                &#8377;<%= element.price.toLocaleString('en-In') %> /night
+                                    <i class="tax-info"> &nbsp; +18% GST</i>
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <% }) %>
+        </div>
+    </body>
+
+    <script>
+        const taxSwitch = document.getElementById("taxSwitch");
+
+        taxSwitch.addEventListener("click", () => {
+            let info = document.getElementsByClassName('tax-info');
+
+            for (i of info) {
+                if (i.style.display != 'inline') {
+                    i.style.display = 'inline'
+                }
+                else {
+                    i.style.display = 'none'
+                }
+            }
+        });
+    </script>

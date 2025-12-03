@@ -1,0 +1,151 @@
+<% layout('layouts/boilerplate.ejs') %>
+
+    <body>
+        <div class="row">
+            <div class="col-md-8 offset-md-3">
+                <h3 class="mt-2"><%= thisListing.title %></h3>
+            </div>
+            <div class="card col-md-6 offset-md-3 show-card">
+                <img src="<%= thisListing.image.url %>" alt="/" class="card-img-top show-img">
+                <div class="card-body">
+                    <!-- <p class="card-text" commenting this out later>
+                        <b><%= thisListing.title %></b>
+                    </p> -->
+
+                    <!-- adding this later -->
+                    <p><i>Owned by <b><%= thisListing.owner.username %></b></i></p>
+
+                    <%= thisListing.description %> <br>
+                    <br>
+                    <p><b>Category: </b><%= thisListing.category %></p>
+                    <b>&#8377 <%= thisListing.price.toLocaleString("en-In") %></b>&nbsp;&nbsp;(taxes will be added during payment)<br>
+                    <i><%= thisListing.location %> <br></i>
+                    <i><%= thisListing.country %></i>
+                </div>
+            </div>
+
+
+            <!-- added this later on my own -->
+            <% if(!currUser || currUser._id.toString() !== thisListing.owner._id.toString()) { %>
+                <div class="col-12 col-md-6 offset-md-3 mt-2">
+                    <% if (!hasbooked) { %>
+                        <a href="/booking/<%= thisListing._id %> " class="btn btn-primary">Book Listing</a>
+                    <% } else { %>   
+                        <a href="/booking/<%= hasbooked._id %>/cancel" class="btn btn-danger">Cancel</a>
+                    <% } %>
+                </div>
+            <% } %>
+
+
+            <% if (currUser && currUser._id.equals(thisListing.owner._id)) { %>
+                <div class="col-12 col-md-6 offset-md-3 mt-2">
+                    <a href="/listings/<%= thisListing._id %>/edit" class="btn btn-danger">Edit</a>
+                    <!--Dont just write listings/id/edit without / at front, logic bruh because if we don't add /, it will search from that page where we are and not default route -->
+                    &nbsp;&nbsp;
+                    <a href="/listings/<%= thisListing._id %>/delete" class="btn btn-secondary">Delete</a>
+                </div>
+            <% } %>
+
+
+            <div class="col-md-8 offset-md-3">
+            <!-- review form -->
+            <% if (currUser) { %>
+                <hr>
+                <h4>Leave a Review</h4>
+                <form action="/listings/<%= thisListing._id %>/reviews" method="post" class="needs-validation" novalidate>
+                    <label for="rating" class="form-label">Rating</label>
+                   
+                    <fieldset class="starability-slot">
+                        <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+                        <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                        <label for="first-rate1" title="Terrible">1 star</label>
+                        <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                        <label for="first-rate2" title="Not good">2 stars</label>
+                        <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                        <label for="first-rate3" title="Average">3 stars</label>
+                        <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                        <label for="first-rate4" title="Very good">4 stars</label>
+                        <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                        <label for="first-rate5" title="Amazing">5 stars</label>
+                    </fieldset>
+ 
+
+                    <div class="mt-1">
+                        <label for="comment" class="form-label">Submit a Review</label>
+                        <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required></textarea>
+
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please add a nice comment
+                        </div>
+                    </div>
+
+                    <button class="btn btn-outline-dark mt-3 mb-3">Submit</button>
+                </form>
+            <% } %>
+             
+
+                <hr>
+
+                <h5 class="mb-3">All Reviews</h5>
+
+                <div class="row gap-4"> <!-- we removed ms-md-4 from below individual .card and added gap here -->
+                    <% thisListing.reviews.forEach(review => { %>
+                        <div class="card review-card col-md-5 mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">@<%= review.createdBy.username %></h5>
+                                
+                                <p class="starability-result" data-rating= "<%= review.rating %>">
+                                </p>
+                                
+                                <p class="card-text"><%= review.comment %></p>
+
+                                <!-- delete button -->
+                                 <form action="/listings/<%= thisListing._id %>/reviews/<%= review._id %>?_method=DELETE" method="post" class="mb-3">
+                                    <button class="btn btn-dark">Delete</button>
+                                 </form>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+             </div>
+
+             <hr class="mt-3">
+
+             <div class="mb-3 col-md-8 offset-md-3">
+                <h3>Where you'll be</h3>
+                <div id="map"></div>
+             </div>
+        </div>
+
+
+        <script>
+            let mapToken = "<%= process.env.MAP_TOKEN %>"
+            console.log(mapToken);
+
+            // let coordinates1 = <%- JSON.stringify(thisListing.geometry.coordinates) -%>;
+            // console.log(coordinates1, typeof coordinates1);
+
+            let coordinates = JSON.parse('<%- JSON.stringify(thisListing.geometry.coordinates) -%>');
+            console.log(coordinates, typeof coordinates);
+
+            // let coordinates2 = <%= JSON.stringify(thisListing.geometry.coordinates) %>;
+            // console.log(coordinates2, typeof coordinates2);
+
+            //all these are same and correct, but since 2nd one is not generating red syntax warnings, we'll keep that
+
+
+            console.log(JSON.stringify('hello'));
+            console.log(JSON.stringify([1,2]));
+
+
+
+            let listingLocation = JSON.parse('<%- JSON.stringify(thisListing.location) %>');
+
+        </script>
+
+        <script src="/public/js/map.js"></script>
+
+    </body>

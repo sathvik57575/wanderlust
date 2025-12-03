@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-md bg-body-tertiary border-bottom sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/"><i class="fa-regular fa-compass"></i></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" href="/">Explore</a>
+        <% if(currUser) { %>
+          <a class="nav-link" href="/listing/mine">My Listings</a>
+          <a class="nav-link" href="/booking/show/<%= currUser._id %>">My Bookings</a>
+          <% } %>
+      </div>
+
+      <!-- added this later -->
+      <div class="ms-auto navbar-nav">
+        <form class="d-flex" role="search" method="get" action="/listing/search">
+          <input class="form-control me-2 search-inp" type="search" placeholder="Search destinations" name="string" />
+          <button class="btn btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+        </form>
+      </div>
+
+
+      <div class="navbar-nav ms-auto"> <!--adding ms-auto(margin-start: auto) makes then go to them right corner-->
+
+        <!-- bringing this before add new listing, because when we drop down it is exceeding the horizontal page width and scrolling -->
+        <% if (currUser) { %> 
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <%= currUser.username %></a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/user/edit">Edit Profile</a></li>
+              </ul>
+            </li>
+        <% } %>
+
+        <a class="nav-link" href="/listing/new">Add new Listing</a>
+
+        <% if (!currUser) { %> <!--if the currUser is undefined(not logged in)-->
+          <a class="nav-link active" href="/user/signup"><b>SignUp</b></a>
+          <a class="nav-link" href="/user/login"><b>Login</b></a>
+          <% } else { %>
+            <a class="nav-link" href="/user/logout"><b>Logout</b></a>
+            <% } %>
+      </div>
+
+    </div>
+  </div>
+</nav>

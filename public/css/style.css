@@ -1,0 +1,113 @@
+body{
+    font-family:  "Plus Jakarta Sans", sans-serif;
+}
+
+/* navbar styling */
+.navbar{
+    min-height: 5rem !important;
+    
+}
+.fa-regular{
+    color: #fe424d;
+    font-size: 2rem;
+
+}
+.nav-link{
+    color: #222222;
+}
+
+
+/* footer styling */
+footer{
+    border-top: 1px solid rgba(113, 110, 110, 0.258) ;
+}
+.f-links a{
+    text-decoration: none;
+    color: #222222;
+    opacity: 0.7;
+}
+.f-links a:hover{
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.f-info{
+    height: 8rem;
+    background-color: #ebebeb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.f-socials{
+    font-size: 1.5rem;
+}
+.f-socials i {
+    margin-right: 1rem;
+}
+
+/* making sure that the footer is at the bottom */
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.main{
+    flex: 1; 
+    /* or flex-grow: 1 */
+}
+
+
+/* home page card styling */
+.listing{
+    text-decoration: none;
+    color: black;
+}
+.card-img-top{
+    width: 100%;
+    border-radius: 1rem;
+    height: 18rem;
+}
+.card{
+    border: none;
+    /* padding: 0 */
+    margin-bottom: 2rem;
+}
+.card-body{
+    padding: 0;
+}
+
+/* card overlay hover effect */
+.card-img-overlay{
+    opacity: 0;
+}
+.card-img-overlay:hover{
+    background-color: white;
+    opacity: 0.2;
+}
+
+
+/*show page styling  */
+.show-img{
+    height: 38vh;
+}
+.show-card{
+    margin-bottom: 0;
+}
+
+
+/* styling reviews */
+.review-card{
+    border: 1px rgba(88, 86, 86, 0.458) solid;
+    margin-bottom: 0;
+}
+
+
+/* map styling */
+
+
+#map { 
+    height: 50vh;
+    max-width: 100vh;
+    /* border: 1px black solid; */
+ }
