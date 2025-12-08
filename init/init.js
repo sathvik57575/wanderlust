@@ -2,7 +2,7 @@ const {Listing} = require('../models/listing')
 const mongoose = require('mongoose')
 let {sampleListings} = require('./data')
 
-const MONGO_URL = 'mongodb+srv://rockstar:12345@cluster0.5083grd.mongodb.net/?appName=Cluster0'
+const MONGO_URL = '***********'
 mongoose.connect(MONGO_URL).then(()=>{
     console.log('MONGODB SUCCESSFULLY CONNECTED');
 })
